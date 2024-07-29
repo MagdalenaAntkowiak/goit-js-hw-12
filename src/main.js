@@ -108,7 +108,7 @@ async function fetchAndDisplayImages() {
       iziToast.info({
         title: 'Info',
         message: "We're sorry, but you've reached the end of search results.",
-        position: 'center',
+        position: 'bottomLeft',
       });
     }
 
