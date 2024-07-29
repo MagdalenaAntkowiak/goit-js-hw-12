@@ -1,0 +1,14 @@
+import{i as l,S as g,a as b}from"./vendor-c493984e.js";(function(){const o=document.createElement("link").relList;if(o&&o.supports&&o.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))i(e);new MutationObserver(e=>{for(const t of e)if(t.type==="childList")for(const n of t.addedNodes)n.tagName==="LINK"&&n.rel==="modulepreload"&&i(n)}).observe(document,{childList:!0,subtree:!0});function s(e){const t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?t.credentials="include":e.crossOrigin==="anonymous"?t.credentials="omit":t.credentials="same-origin",t}function i(e){if(e.ep)return;e.ep=!0;const t=s(e);fetch(e.href,t)}})();const v="45147118-3a4bc08e8d7fb4b6ec64761bc",w="https://pixabay.com/api/";let c="",a=1;async function L(r,o){try{return(await b.get(w,{params:{key:v,q:r,image_type:"photo",orientation:"horizontal",safesearch:!0,page:o,per_page:40}})).data}catch(s){throw console.error(s),new Error("Failed to fetch images")}}const S=document.querySelector("#search-form"),p=document.querySelector("#gallery"),d=document.querySelector("#loader"),f=document.querySelector('input[name="query"]'),q=document.querySelector("#load-more"),u=document.querySelector(".load-more");S.addEventListener("submit",r=>{r.preventDefault(),c=f.value.trim(),c!==""&&(a=1,p.innerHTML="",f.value="",d.style.display="block",u.style.display="none",m())});q.addEventListener("click",()=>{a+=1,m()});async function m(){try{const r=await L(c,a);if(d.style.display="none",r.hits.length===0){l.error({title:"Error",message:"Sorry, there are no images matching your search query. Please try again!",position:"center"});return}const o=r.hits.map(({webformatURL:s,largeImageURL:i,tags:e,likes:t,views:n,comments:y,downloads:h})=>`
+        <li>
+          <a href="${i}">
+            <img src="${s}" alt="${e}" />
+          </a>
+          <div class="image-info">
+            <div class="info-item"><span class="label">Likes:</span> ${t}</div>
+            <div class="info-item"><span class="label">Views:</span> ${n}</div>
+            <div class="info-item"><span class="label">Comments:</span>${y}</div>
+            <div class="info-item"><span class="label">Downloads:</span>${h}</div>
+          </div>
+        </li>
+      `).join("");p.insertAdjacentHTML("beforeend",o),new g(".gallery a",{captionsData:"alt",captionDelay:250}).refresh(),a<Math.ceil(r.totalHits/40)?u.style.display="block":(u.style.display="none",l.info({title:"Info",message:"We're sorry, but you've reached the end of search results.",position:"center"})),E()}catch(r){d.style.display="none",l.error({title:"Error",message:"Something went wrong. Please try again!",position:"topRight"}),console.error(r)}}function E(){const{height:r}=p.firstElementChild.getBoundingClientRect();window.scrollBy({top:r*2,behavior:"smooth"})}
+//# sourceMappingURL=main-9d1fa4b6.js.map
